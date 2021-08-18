@@ -1,5 +1,9 @@
 """Project Description:
 
+Text-to-Speech conversion of two different file formats(PDF and .txt which are most widely used) are done using the gTTS which is Google's Text to speech API and Python library pysstx3 and PyPDF2.
+The programs reads the input file which is in a documented or written format and converts and reads it out for us as an audio file of .mp3 format. 
+This is the basic implementation behind the audiobook concept at the basic level
+
 1.This is a Text-to-Speech-conversion project using various python libraries
 A local file on the machine is given as input
 
