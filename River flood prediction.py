@@ -1,13 +1,15 @@
-//Data pre-processing and cleaning//
+# Drive links for the datasets are at the end of the code
 
-// importing required packages for data pre-processing //
+# Data pre-processing and cleaning
+
+# importing required packages for data pre-processing 
 import pandas as pd
 import numpy as np
 
-//reading the data//
+# reading the data
 data=pd.read_csv(r'/gdrive/MyDrive/minordata/River_Arno.csv')
 
-//data pre-processing//
+# data pre-processing
 from datetime import datetime, date
 data['Date']=pd.to_datetime(data.Date,format='%d/%m/%Y')
 missing=data.isnull().sum()
@@ -15,13 +17,13 @@ missingdata=(missing/len(data['Date']))*100
 print(missingdata)
 
 
-//Preprocessed data visualisation
+# Preprocessed data visualisation
 
-//importing the required packages for visualisation
+# importing the required packages for visualisation
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-//plotting heatmap for the missing values 
+# plotting heatmap for the missing values 
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10,5))
 sns.heatmap(data.T.isna(), cmap='Greys')
 ax.set_title('Fig 1 - Missing Values', fontsize=14)
@@ -31,12 +33,12 @@ for i in ax.yaxis.get_major_ticks():
 
 plt.show()
 
-//correlation matrix visualisation//
+# correlation matrix visualisation
 fig, ax = plt.subplots(figsize=(10,5)) 
 ax.set_title('Fig 2 - Correlation Matrix', fontsize=14)
 ax = sns.heatmap(data.corr(), vmin=-1, vmax=1, center=0, cmap='Greys', square=True)
 
-//training the model with the preprocessed data
+# training the model with the preprocessed data
 data = data.dropna()
 data = data.reset_index(drop=True)
 train_size = 0.67
@@ -46,7 +48,7 @@ rfe_train, rfe_test = data[0:rfe_train_test-1], data[rfe_train_test:len(data)]
 
 
 
-//implementing Recursive Feature Elimination (RFE)
+# implementing Recursive Feature Elimination (RFE)
 from sklearn.feature_selection import RFE
 from sklearn.ensemble import ExtraTreesRegressor
 
@@ -87,7 +89,7 @@ for column in decompose_columns:
 df = df.dropna()
 df = df.reset_index(drop=True)
 
-//Visualisations of the RFE results as trends 
+# Visualisations of the RFE results as trends 
 
 f, ax = plt.subplots(nrows=9, ncols=1, figsize=(15, 20))
 f.tight_layout()
@@ -144,7 +146,7 @@ plt.show()
 
 
 
-//implementing Long Short Term Memory(LSTM)
+# implementing Long Short Term Memory(LSTM)
 
 import math
 from tensorflow import keras
@@ -225,7 +227,7 @@ def lstm_predict(df_norm, target_column, train_size, look_back=1, neurons=20, ep
 
 model = lstm_predict(df, target_column='Hydrometry_Nave_di_Rosano', train_size=train_size, look_back=30, neurons=2, epochs=150)
 
-//MAE and RSME train and test scores
+# MAE and RSME train and test scores
 
 score_train_mae = mean_absolute_error(model[0], model[1])
 score_test_mae = mean_absolute_error(model[2], model[3])
@@ -239,7 +241,7 @@ print(f'RSME Train: {score_train_rsme} \nRSME Test: {score_test_rsme}')
 
 
 
-//model's prediction
+# model's prediction
 
 fig, ax = plt.subplots(1, figsize=(10,5))
 ax.set_title('Fig 5 - Prediction vs. Real', fontsize=14)
@@ -250,6 +252,9 @@ ax.legend(loc='best', fontsize=14)
 plt.show()
 
 
-// Dataset drive link
-https://drive.google.com/drive/folders/1Vksoe5bC7YO24q0kXlYBD6nqZYuM4qtT?usp=sharing
+# complete  Dataset drive link
+#https://drive.google.com/drive/folders/1Vksoe5bC7YO24q0kXlYBD6nqZYuM4qtT?usp=sharing
+   
+# Base model dataset link
+#https://drive.google.com/file/d/1PWoceaP6o0gZZwXM_BgZtofDJMk9QXOh/view?usp=sharing
     
